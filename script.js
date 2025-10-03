@@ -43,6 +43,9 @@ function displayHistory(text) {
 
 function operatorClicked(e) {
   if (resultClickedFlag) {
+    // If last operation was to evaluate result.
+    // User wants to chain operations
+    // So, copy over the accumulator and store the operator.
     operand = "";
     operator = e.target.dataset.value;
     clearHistory();
@@ -62,7 +65,11 @@ function operatorClicked(e) {
 
 function operandClicked(e) {
   if (resultClickedFlag) {
+    // If last operation was to evaluate result.
+    // This operation should be a new evaluation
+    // So, reset operator, operand and accumulator
     acc = 0;
+    operator = "add";
     operand = "";
     clearHistory();
     resultClickedFlag = false;
@@ -78,8 +85,6 @@ function resultClicked(e) {
   displayHistory(operand);
   acc = operate(acc, operand, operator);
   displayOperand(acc);
-  operand = "";
-  operator = "add";
   resultClickedFlag = true;
 }
 
