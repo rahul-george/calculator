@@ -1,6 +1,6 @@
 let acc = 0;
 let operand = "";
-let operator = "add";
+let operator = "+";
 let history = [];
 
 let resultClickedFlag = false;
@@ -17,15 +17,15 @@ function operate(operandOne, operandTwo, operator) {
   let a = parseInt(operandOne);
   let b = parseInt(operandTwo);
   switch (operator) {
-    case "add":
+    case "+":
       return a + b;
-    case "subtract":
+    case "-":
       return a - b;
-    case "multiply":
+    case "*":
       return a * b;
-    case "division":
+    case "/":
       return a / b; // error checking division by Zero
-    case "modulo":
+    case "%":
       return a % b; // error checking division by Zero
     default:
       break;
@@ -37,7 +37,7 @@ function displayOperand(operand) {
 }
 
 function displayHistory(text) {
-  updateHistory(text);
+  if (text) updateHistory(text);
   historyDisplay.textContent = history.join("");
 }
 
@@ -69,7 +69,7 @@ function operandClicked(e) {
     // This operation should be a new evaluation
     // So, reset operator, operand and accumulator
     acc = 0;
-    operator = "add";
+    operator = "+";
     operand = "";
     clearHistory();
     resultClickedFlag = false;
@@ -82,10 +82,23 @@ function resultClicked(e) {
   if (acc === "") return;
   if (operator === "") return;
   if (operand === "") return;
+  if (resultClickedFlag) {
+    displayHistory(operator);
+  }
   displayHistory(operand);
   acc = operate(acc, operand, operator);
   displayOperand(acc);
   resultClickedFlag = true;
+}
+
+function clearClicked(e) {
+  acc = 0;
+  operator = "add";
+  operand = "";
+  clearHistory();
+  resultClickedFlag = false;
+  displayOperand(operand);
+  displayHistory();
 }
 
 // current input display
@@ -105,3 +118,6 @@ operatorButtons.forEach((button) =>
 
 const resultButton = document.querySelector(".result");
 resultButton.addEventListener("click", resultClicked);
+
+const clearButton = document.querySelector(".clear");
+clearButton.addEventListener("click", clearClicked);
