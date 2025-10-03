@@ -37,6 +37,8 @@ span {
   align-items: stretch;
   padding: 0.25em;
   aspect-ratio: 10;
+  color: black;
+  text-align: right;
 }
 
 .keys {
