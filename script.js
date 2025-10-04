@@ -29,8 +29,8 @@ function debugPrint(label) {
 
 function operate(operandOne, operandTwo, operator) {
   // debugPrint("Start of operate method");
-  let a = parseInt(operandOne);
-  let b = parseInt(operandTwo);
+  let a = parseFloat(operandOne);
+  let b = parseFloat(operandTwo);
   debugPrint("Start of operate method");
   switch (operator) {
     case "+":
@@ -105,6 +105,15 @@ function operandClicked(e) {
   displayOperand(operand);
 }
 
+function decimalPointClicked(e) {
+  if (operand.includes(".")) {
+    console.error("log present!");
+    return;
+  }
+
+  operand += ".";
+}
+
 function resultClicked(e) {
   debugPrint("Start of operatorClicked method");
   if (acc === "") return;
@@ -146,6 +155,9 @@ operatorButtons.forEach((button) =>
 
 const resultButton = document.querySelector(".result");
 resultButton.addEventListener("click", resultClicked);
+
+const decimalPointButton = document.querySelector(".decimalPoint");
+decimalPointButton.addEventListener("click", decimalPointClicked);
 
 const clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click", clearClicked);
