@@ -2,6 +2,7 @@ let acc = 0;
 let operand = "";
 let operator = "+";
 let history = [];
+let debug = false;
 
 let resultClickedFlag = false;
 
@@ -14,18 +15,23 @@ function clearHistory() {
 }
 
 function debugPrint(label) {
+  if (!debug) {
+    return;
+  }
   console.group(label);
   console.log({ acc });
   console.log({ operand });
   console.log({ operator });
   console.log({ history });
+  console.log({ resultClickedFlag });
   console.groupEnd();
 }
 
 function operate(operandOne, operandTwo, operator) {
-  debugPrint("Start of operate method");
+  // debugPrint("Start of operate method");
   let a = parseInt(operandOne);
   let b = parseInt(operandTwo);
+  debugPrint("Start of operate method");
   switch (operator) {
     case "+":
       return a + b;
@@ -36,13 +42,13 @@ function operate(operandOne, operandTwo, operator) {
     case "/":
       if (!b) {
         alert("Cannot perform division by 0");
-        return "";
+        return 0;
       }
       return a / b; // error checking division by Zero
     case "%":
       if (!b) {
         alert("Cannot perform division by 0");
-        return "";
+        return 0;
       }
       return a % b; // error checking division by Zero
     default:
@@ -56,11 +62,12 @@ function displayOperand(operand) {
 }
 
 function displayHistory(text) {
-  if (text) updateHistory(text);
+  updateHistory(text);
   historyDisplay.textContent = history.join("");
 }
 
 function operatorClicked(e) {
+  debugPrint("Start of operatorClicked method");
   if (resultClickedFlag) {
     // If last operation was to evaluate result.
     // User wants to chain operations
@@ -83,6 +90,7 @@ function operatorClicked(e) {
 }
 
 function operandClicked(e) {
+  debugPrint("Start of operatorClicked method");
   if (resultClickedFlag) {
     // If last operation was to evaluate result.
     // This operation should be a new evaluation
@@ -98,6 +106,7 @@ function operandClicked(e) {
 }
 
 function resultClicked(e) {
+  debugPrint("Start of operatorClicked method");
   if (acc === "") return;
   if (operator === "") return;
   if (operand === "") return;
