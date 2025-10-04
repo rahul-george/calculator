@@ -13,7 +13,17 @@ function clearHistory() {
   history = [];
 }
 
+function debugPrint(label) {
+  console.group(label);
+  console.log({ acc });
+  console.log({ operand });
+  console.log({ operator });
+  console.log({ history });
+  console.groupEnd();
+}
+
 function operate(operandOne, operandTwo, operator) {
+  debugPrint("Start of operate method");
   let a = parseInt(operandOne);
   let b = parseInt(operandTwo);
   switch (operator) {
@@ -24,10 +34,19 @@ function operate(operandOne, operandTwo, operator) {
     case "*":
       return a * b;
     case "/":
+      if (!b) {
+        alert("Cannot perform division by 0");
+        return "";
+      }
       return a / b; // error checking division by Zero
     case "%":
+      if (!b) {
+        alert("Cannot perform division by 0");
+        return "";
+      }
       return a % b; // error checking division by Zero
     default:
+      console.error(`Invalid operator ${operator}`);
       break;
   }
 }
@@ -93,7 +112,7 @@ function resultClicked(e) {
 
 function clearClicked(e) {
   acc = 0;
-  operator = "add";
+  operator = "+";
   operand = "";
   clearHistory();
   resultClickedFlag = false;
